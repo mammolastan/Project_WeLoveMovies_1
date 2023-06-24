@@ -2,6 +2,9 @@ if (process.env.USER) require("dotenv").config();
 const express = require("express");
 const app = express();
 
+const cors = require("cors");
+app.use(cors());
+
 const moviesRouter = require("./movies/movies.router");
 const reviewsRouter = require("./reviews/reviews.router");
 const theatersRouter = require("./theaters/theaters");
