@@ -1,4 +1,19 @@
 const service = require("./movies.service");
+const mapProperties = require("../utils/map-properties");
+
+const configuration = {
+  critic_id: "critic.category_id",
+  preferred_name: "critic.preferred_name",
+  surname: "critic.surname",
+  organization_name: "critic.organization_name",
+};
+
+const addCategory = mapProperties({
+  critic_id: "critic.category_id",
+  preferred_name: "critic.preferred_name",
+  surname: "critic.surname",
+  organization_name: "critic.organization_name",
+});
 
 // Check if movie exists
 async function movieExists(req, res, next) {
@@ -49,9 +64,11 @@ async function movieShowings(req, res) {
 }
 
 // List reviews of movie
+
 async function movieReviews(req, res) {
   const movie = res.locals.movie;
-  const data = await service.movieReviews(movie.id);
+  const result = await service.movieReviews(movie.id);
+  const data = result.map(mapProperties(configuration));
 
   res.json({
     data,

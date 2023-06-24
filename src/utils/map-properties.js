@@ -14,6 +14,7 @@ function mapProperties(configuration) {
         return lodash.set(accumulator, configuration[key] || key, value);
       }, {});
     }
+
     return data;
   };
 }
