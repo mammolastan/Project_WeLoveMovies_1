@@ -1,13 +1,5 @@
 const knex = require("../db/connection");
 const tableName = "movies";
-const mapProperties = require("../utils/map-properties");
-
-const addCategory = mapProperties({
-  critic_id: "critic.category_id",
-  preferred_name: "critic.preferred_name",
-  surname: "critic.surname",
-  organization_name: "critic.organization_name",
-});
 
 function list() {
   return knex(tableName).select();
@@ -17,8 +9,7 @@ function listShowing() {
   return knex(`${tableName} as m`)
     .join("movies_theaters as mt", "m.movie_id", "mt.movie_id")
     .select("*")
-    .where({ "mt.is_showing": true })
-    .groupBy("m.movie_id");
+    .where({ "mt.is_showing": true });
 }
 
 function read(movie_id) {
